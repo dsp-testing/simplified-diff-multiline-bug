@@ -43,8 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		BearerAuthenticationFilter filter = new BearerAuthenticationFilter(authenticationManager(), this.antPattern);
 		filter.setAuthenticationSuccessHandler(jwtAuthenticationSuccessHandler);
-		http.cors().and()
-			 .csrf().and()
+		http.cors().and().csrf().disable().and()
 			 .authorizeRequests().antMatchers(this.antPattern).authenticated().and()
 			 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
 			 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
